@@ -2,11 +2,15 @@
 
 guardado(){
 echo "dn: uid=$uid,ou=$ou,dc=$dc,dc=$dc2" >> $fi.ldif
-echo "objectClass: top" >> $fi.ldif
-echo "objectClass: account" >> $fi.ldif
+echo "objectClass: inetOrgPerson" >> $fi.ldif
 echo "objectClass: posixAccount" >> $fi.ldif
 echo "objectClass: shadowAccount" >> $fi.ldif
 echo "cn: $uid" >> $fi.ldif
+echo "sn: $usernum"
+echo "givenName: $uid"
+echo "displayName: $uid"
+echo "uidNumber: 2000"
+echo "gitNumber: 1000"
 echo "homeDirectory: /home/$uid" >> $fi.ldif
 echo "loginShell: /bin/bash" >> $fi.ldif
 echo "userPassword: $(sudo cat /etc/shadow |grep $uid| cut -d':' -f2)" >> $fi.ldif
@@ -39,4 +43,6 @@ echo "Introduce el dc: (Domain Component):"
 read dc
 echo "Introduce otro dc: (Domain Component). Por ejemplo com de .com:"
 read dc2
+echo "Introduce el numero de usuario: 1,2,3..."
+read usernum
 guardado
